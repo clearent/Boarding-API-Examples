@@ -1,0 +1,1285 @@
+{
+	"info": {
+		"_postman_id": "696e7c43-5fb1-462d-9010-acd7accf1796",
+		"name": "Example Integration Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Boarding A Single Merchant",
+			"item": [
+				{
+					"name": "Boarding Management - Reserve A Merchant Identifier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dabafdb0-bae0-44f6-8765-dcfd7350fcc4",
+								"exec": [
+									"pm.variables.set('MerchantId', pm.response.json().merchantNumber)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantID",
+								"value": "{{HierarchyNodeKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"hierarchyNodeKey\" : {{HierarchyNodeKey}}\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/boardingmanagement/v1.0/applications/create",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"boardingmanagement",
+								"v1.0",
+								"applications",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boarding Management - Add External Identifier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dabafdb0-bae0-44f6-8765-dcfd7350fcc4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"type": "text",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantID",
+								"type": "text",
+								"value": "{{MerchantId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/boardingmanagement/v1.0/applications/{{MerchantId}}/Properties?ExternalCustomerId=AnIdentifierFromYourSystem",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"boardingmanagement",
+								"v1.0",
+								"applications",
+								"{{MerchantId}}",
+								"Properties"
+							],
+							"query": [
+								{
+									"key": "ExternalCustomerId",
+									"value": "AnIdentifierFromYourSystem"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Create Merchant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e152a5bf-6b51-4897-8842-811fa40476cd",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"merchantNumber\": {{MerchantId}},\r\n   \"hierarchyNodeKey\": {{HierarchyNodeKey}},\r\n   \"dbaName\": \"Sandbox Test Merchant\",\r\n   \"acceptsPaperStatements\": false,\t\r\n   \"acceptsPaperTaxForms\": true,\r\n   \"companyTypeId\": 2,\r\n   \"Phones\": [{\r\n   \t\t\"PhoneTypeCodeID\": 1,\r\n   \t\t\"AreaCode\": \"555\",\r\n   \t\t\"PhoneNumber\": \"1110000\"\r\n   }]\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/Merchants/",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"Merchants",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Update Physical Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8b29cf2-3f63-4e77-b4ce-82ece1b26d34",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"line1\": \"222 Test Physical Address\",\r\n    \"line2\": \"Apartment 22\",\r\n    \"line3\": null,\r\n    \"city\": \"New York City\",\r\n    \"stateCode\": \"NY\",\r\n    \"zip\": \"10001\",\r\n    \"countrycode\": 840\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/MerchantPhysicalAddresses/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"MerchantPhysicalAddresses",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Update Mailing Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e99d1c2d-777d-4d51-9f7d-94fd184f2686",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": " {{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"line1\": \"222 Test Mailing Address\",\r\n    \"line2\": \"Apartment 22\",\r\n    \"line3\": null,\r\n    \"city\": \"New York City\",\r\n    \"stateCode\": \"NY\",\r\n    \"zip\": \"10001\",\r\n    \"countrycode\": 840\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/MerchantMailingAddresses/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"MerchantMailingAddresses",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Update Sales Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b69d92aa-9fd7-46e1-925c-9e64d6b9d37d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"isEcommerce\": true,\r\n\t\"mccCode\": \"5812\",\r\n    \"cardPresentPercentage\": 25,\r\n    \"returnRefundPolicy\": \"Money back guarantee\",\r\n    \"productsSold\": \"Food and drinks\",\r\n    \"previouslyAcceptedPaymentCards\": false,\r\n    \"previouslyTerminatedOrIdentifiedByRiskMonitoring\": true,\r\n    \"reasonPreviouslyTerminatedOrIdentifiedByRisk\": \"Stolen identity\",\r\n    \"currentlyOpenForBusiness\": true,\r\n    \"annualVolume\": 220000.00,\r\n    \"averageTicket\": 50.00,\r\n    \"ownsProduct\": true,\r\n    \"ordersProduct\":true,\r\n    \"sellsFirearms\": false,\r\n    \"sellsFirearmAccessories\": false,\r\n    \"futureDeliveryTypeID\": 3,\r\n    \"futureDeliveryPercentage\": 50,\r\n    \"otherDeliveryType\": \"30 days\",\r\n    \"fireArmsLicense\": \"111133331111333\",\r\n    \"cardBrands\": [1,4,5],\r\n    \"highTicket\": 100\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v2.0/SalesProfiles/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v2.0",
+								"SalesProfiles",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Update Site Survey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ef6b3cb5-c215-43b6-8156-217ea1f68c76",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"siteTypeID\": 2,\r\n    \"otherSiteTypeDescription\": \"Downtown storefront\",\r\n    \"siteSurveyConductedInPerson\": true,\r\n    \"merchantAcquisitionTypeID\": 1,\r\n    \"validIDVerified\": true,\r\n    \"inventoryMatchesProductSold\": true,\r\n    \"inventoryMatchesProductSoldComments\": \"Inventory includes frozen foods, drinks, etc...\",\r\n\t\"AgreementAccepted\": true\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/SiteSurveys/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"SiteSurveys",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Update Taxpayer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "724f5706-a768-45c6-add6-c2d919fe29fc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tin\": \"111221111\",\r\n    \"tinTypeID\": 1,\r\n    \"businessLegalName\": \"Sandbox Test Merchant Legal Name\",\r\n    \"legalFirstName\": null,\r\n    \"legalLastName\": null,\r\n    \"stateIncorporatedCode\" : 840\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v2.0/Taxpayers/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v2.0",
+								"Taxpayers",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Create Bank Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "39c93fa1-2b1b-490f-9d37-abdf376a9f97",
+								"exec": [
+									"pm.variables.set('BankAccountID', pm.response.json().bankAccountID)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"BankName\": \"Sandbox Test Bank\",\r\n\t\"BankAccountTypeID\": 1,\r\n\t\"BankAccountNameTypeID\":1,\r\n\t\"ABA\": \"021000021\",\r\n\t\"AccountNumber\": \"4445553333\",\r\n    \"HasFees\": true,\r\n    \"HasFunds\": true,\r\n    \"HasChargebacks\": true,\r\n    \"NameOnAccount\": \"Sandbox Test Merchant\",\r\n    \"IsNameSameAsLegalOrDBAName\": true\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/BankAccounts/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"BankAccounts",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Create Business Contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c191c199-fac9-461e-8ec1-91b6593e1a36",
+								"exec": [
+									"pm.variables.set('BusinessContactId', pm.response.json().businessContactId)",
+									"pm.variables.set('ContactId', pm.response.json().contact.contactId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ownershipAmount\": 80,\n    \"title\": \"CEO\",\n    \"emailAddress\": \"johndoe@example.com\",  \n    \"contact\" : {\n    \t\"firstName\":\"John\",\n    \t\"lastName\": \"Doe\",\n    \t\"ssn\": \"000991111\",\n    \t\"dateOfBirth\": \"01/01/1980\",\n    \t\"countryOfCitizenshipCode\": 840,\n    \t\"address\":\n\t\t    {\n\t\t    \t\"Line1\": \"Contact Test Line 1\",\n\t\t    \t\"Line2\": \"Apartment 22\",\n\t\t    \t\"Line3\": \"\",\n\t\t    \t\"City\": \"Louisville\",\n\t\t    \t\"StateCode\": \"KY\",\n\t\t    \t\"Zip\": \"40223\",\n\t\t    \t\"CountryCode\": 840\n\t\t    }\n    },\n    \"phoneNumbers\": [\n\t\t    {\n\t\t      \"PhoneTypeCodeID\": 1,\n\t\t      \"AreaCode\": \"555\",\n\t\t      \"PhoneNumber\": \"332-1313\",\n\t\t      \"Extension\": 123\n\t\t    },\n\t\t    {\n\t\t      \"PhoneTypeCodeID\": 2,\n\t\t      \"AreaCode\": \"555\",\n\t\t      \"PhoneNumber\": \"111-2244\",\n\t\t      \"Extension\": 321\n\t\t    }\n    ],\n    \"contactTypes\": [{\n    \t\"ContactTypeID\": 1\n    }]\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/BusinessContacts/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"BusinessContacts",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Submit Ownership Disclosure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba2d258e-a5cb-41b4-9cc3-75be2f82f35c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"type": "text",
+								"value": "{{MerchantId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"AllPersonsWithOverTwentyFivePercentOwnershipHaveBeenAdded\":true\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/BusinessContacts/{{MerchantId}}/beneficialowneragreement",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"BusinessContacts",
+								"{{MerchantId}}",
+								"beneficialowneragreement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pricing - Get Available Templates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f05fa744-9f9c-4dc2-9c7c-cf3fc0efc67c",
+								"exec": [
+									"//Choose an available Pricing Plan Template to use.",
+									"var selectedTemplate = pm.response.json().content[0];",
+									"",
+									"//Initialize the variables we will copy from the Pricing Plan Template.",
+									"var pricingPlanTemplateId = selectedTemplate.pricingPlanTemplateID;",
+									"var isAdvancedPricing = selectedTemplate.isAdvancedPricing;",
+									"var includeAssessments = false;",
+									"var isEmf = false;",
+									"var isDailySettle = false;",
+									"var pricingFees = [];",
+									"",
+									"//Extract default values from Pricing Plan Template settings.",
+									"selectedTemplate.templateSettings.forEach(setting => {",
+									"  if(setting.pricingPlanSettingName == 'IsEMF'){",
+									"      isEmf = setting.defaultValue;",
+									"  }",
+									"  if(setting.pricingPlanSettingName == 'IsDailySettle'){",
+									"      isDailySettle = setting.defaultValue;",
+									"  }",
+									"  if(setting.pricingPlanSettingName == 'IncludeAssessments'){",
+									"      includeAssessments = setting.defaultValue;",
+									"  }",
+									"})",
+									"",
+									"//Extract required Pricing Fees from Pricing Plan Template.",
+									"selectedTemplate.templateFees.forEach(feeFromTemplate => {",
+									"    if(feeFromTemplate.isRequired){",
+									"        pricingFees.push(CreateFee(feeFromTemplate));",
+									"    }",
+									"    ",
+									"    //Copy EMF Fee If Pricing Plan Is EMF.",
+									"    if(feeFromTemplate.clearentPricingFeeID === 118){",
+									"        if(isEmf){",
+									"            pricingFees.push(CreateFee(feeFromTemplate));",
+									"        }",
+									"    }",
+									"})",
+									"",
+									"//Add values to new Pricing Plan that we can POST it back to the API.",
+									"var newPricingPlan = {",
+									"    MerchantNumber: pm.variables.get('MerchantId'),",
+									"\tPricingPlanTemplateID: pricingPlanTemplateId,",
+									"\tIsAdvancedPricing: isAdvancedPricing,",
+									"\tIncludeAssessments: includeAssessments,",
+									"\tPassThroughNetworkFees: includeAssessments,",
+									"\tIsEMF: isEmf,",
+									"\tIsDailySettle: isDailySettle,",
+									"\tPricingFees: pricingFees",
+									"}",
+									"",
+									"//Needed for Postman.",
+									"pm.variables.set('NewPricingPlan', JSON.stringify(newPricingPlan));",
+									"",
+									"//Simple function to copy default values from a Pricing Plan Template into a Pricing Plan.",
+									"//If this was a UI where we wanted users to set some of these values, we could use",
+									"//fields such as minRate, maxRate, minFee, maxFee, and isRequired to validate the",
+									"//numbers entered by users.",
+									"function CreateFee(feeFromTemplate){",
+									"    var fee = {",
+									"        ClearentPricingFeeID: feeFromTemplate.clearentPricingFeeID,",
+									"        Rate: feeFromTemplate.defaultRate,",
+									"        Fee: feeFromTemplate.defaultFee ",
+									"    };",
+									"        ",
+									"    if(feeFromTemplate.isFee && fee.Fee === null)",
+									"    {",
+									"        fee.Fee = 0.0;",
+									"    }",
+									"        ",
+									"    if(feeFromTemplate.isRate && fee.Rate === null)",
+									"    {",
+									"        fee.Rate = 0.0;",
+									"    }",
+									"    ",
+									"    if(feeFromTemplate.isPayInMonthRequired1){",
+									"        fee.payInMonth1 = 1;",
+									"    }",
+									"",
+									"    if(feeFromTemplate.isPayInMonthRequired1){",
+									"        fee.payInMonth2 = 1;",
+									"    }",
+									"    ",
+									"    return fee;",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"type": "text",
+								"value": "{{MerchantId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/pricing/v2.0/PricingPlan/{{MerchantId}}/Templates",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"pricing",
+								"v2.0",
+								"PricingPlan",
+								"{{MerchantId}}",
+								"Templates"
+							]
+						},
+						"description": "The options available in the Pricing API may differ based on the integrator and can be retrieved from the PricingPlanTemplate/All endpoint as a PricingPlanTemplate. We recommend dynamically constructing a PricingPlan for your merchant based on the options returned to you from this endpoint. As an example, this request retrieves the a PricingPlanTemplate, the accompanying test maps the values from the PricingPlanTemplate into a PricingPlan, and then the following request sends that PricingPlan back."
+					},
+					"response": []
+				},
+				{
+					"name": "Pricing - Create Pricing Plan Using Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "148a21f2-616a-4c8b-8629-b278cf175eea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"type": "text",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"type": "text",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"type": "text",
+								"value": "{{MerchantId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{NewPricingPlan}}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/pricing/v2.0/PricingPlan/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"pricing",
+								"v2.0",
+								"PricingPlan",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Equipment - Create Order",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2def0eaf-4862-43b0-8d2b-adec5f4d9d6d",
+								"exec": [
+									"",
+									"var tokenUrl = pm.environment.get('SecurityEdgeServiceApi');",
+									"var clientSecret = pm.environment.get('AccessKey');",
+									"var merchantID = pm.variables.get('MerchantNumber');",
+									"",
+									"getTokenIfNotExistsOrExpired(tokenUrl, clientSecret);",
+									"",
+									"function getTokenIfNotExistsOrExpired(tokenUrl, clientSecret)",
+									"{",
+									"    console.log(\"start\");",
+									"    var token = pm.variables.get('AuthToken');",
+									"    var tokenExpiresAt = pm.variables.get('TokenExpiresAt');",
+									"    ",
+									"    if((!token || token.length === 0) || (new Date()).valueOf() >= tokenExpiresAt)",
+									"    {",
+									"        ",
+									"        console.log(\"in\");",
+									"        pm.sendRequest({",
+									"            url: tokenUrl,",
+									"            method: 'GET',",
+									"            header: {",
+									"                'AccessKey':  clientSecret,",
+									"                'MerchantID': merchantID",
+									"            }",
+									"        }, function(err, res) {",
+									"            ",
+									"            if(err) {",
+									"                console.log(err);",
+									"            }",
+									"            else {",
+									"                console.log(res.json());",
+									"                var token = res.json();",
+									"                var expiresAt = (new Date((new Date()).valueOf() + token.expiration)).valueOf();",
+									"                pm.variables.set('AuthToken', token.value);",
+									"                pm.variables.set('TokenExpiresAt', expiresAt);",
+									"            }",
+									"        });",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c15ba83-6d3e-4a65-aeb7-2cdccb0f43b1",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"type": "text",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"type": "text",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"type": "text",
+								"value": "{{MerchantId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"merchantNumber\":{{MerchantId}},\r\n   \"status\":\"Submitted\",\r\n   \"orderItems\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"manufacturer\":\"Quest\",\r\n         \"productName\":\"Virtual Terminal - No Reader\",\r\n         \"productType\":\"Terminal\",\r\n         \"survey\":{\r\n            \"questionAnswerGroup\":{\r\n               \"id\":77,\r\n               \"questionAreas\":[\r\n                  \"Communications\",\r\n                  \"AutoClose\",\r\n                  \"BatchReportTypes\",\r\n                  \"Application\",\r\n                  \"Frontend\",\r\n                  \"Tips\",\r\n                  \"PinPad\",\r\n                  \"General\",\r\n                  \"Setup\",\r\n                  \"Security\",\r\n                  \"AVS\",\r\n                  \"Billing\",\r\n                  \"Shipping\"\r\n               ],\r\n               \"questionAnswerSets\":{\r\n                  \"AutoClose\":[\r\n                     {\r\n                        \"id\":258,\r\n                        \"type\":\"Yes/No\",\r\n                        \"sendToMerchantApp\":false,\r\n                        \"answers\":[\r\n                           {\r\n                              \"id\":1,\r\n                              \"selected\":false,\r\n                              \"answer\":\"Yes\",\r\n                              \"uId\":\"1AutoClose1\"\r\n                           },\r\n                           {\r\n                              \"id\":2,\r\n                              \"selected\":true,\r\n                              \"answer\":\"No\",\r\n                              \"uId\":\"1AutoClose2\"\r\n                           }\r\n                        ],\r\n                        \"children\":[\r\n                           {\r\n                              \"id\":259,\r\n                              \"type\":\"24-Hour Time (Hour:Minute)\",\r\n                              \"sendToMerchantApp\":false,\r\n                              \"answers\":[\r\n                                 {\r\n                                    \"id\":0,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"\",\r\n                                    \"uId\":\"1AutoClose3\"\r\n                                 }\r\n                              ],\r\n                              \"children\":[\r\n\r\n                              ],\r\n                              \"required\":true,\r\n                              \"question\":\"What time does the merchant want thier batch to close each night?\",\r\n                              \"conditionalOnAnswer\":1,\r\n                              \"tags\":[\r\n                                 {\r\n                                    \"group\":\"orderService.map.tsys\",\r\n                                    \"name\":\"autoBatchCloseTime\"\r\n                                 },\r\n                                 {\r\n                                    \"group\":\"orderService.map.quest\",\r\n                                    \"name\":\"autoBatchCloseTime\"\r\n                                 }\r\n                              ]\r\n                           },\r\n                           {\r\n                              \"id\":260,\r\n                              \"type\":\"MultipleChoice-SingleSelect\",\r\n                              \"sendToMerchantApp\":false,\r\n                              \"answers\":[\r\n                                 {\r\n                                    \"id\":150,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Eastern\",\r\n                                    \"uId\":\"1AutoClose4\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":151,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Pacific\",\r\n                                    \"uId\":\"1AutoClose5\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":152,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Michigan\",\r\n                                    \"uId\":\"1AutoClose6\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":153,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Central\",\r\n                                    \"uId\":\"1AutoClose7\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":154,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Arizona\",\r\n                                    \"uId\":\"1AutoClose8\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":155,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Hawaii\",\r\n                                    \"uId\":\"1AutoClose9\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":156,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/East-Indiana\",\r\n                                    \"uId\":\"1AutoClose10\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":157,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Alaska\",\r\n                                    \"uId\":\"1AutoClose11\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":158,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"Default UTC \",\r\n                                    \"uId\":\"1AutoClose12\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":159,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Mountain\",\r\n                                    \"uId\":\"1AutoClose13\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":160,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"US/Indiana-Starke\",\r\n                                    \"uId\":\"1AutoClose14\"\r\n                                 }\r\n                              ],\r\n                              \"children\":[\r\n\r\n                              ],\r\n                              \"required\":true,\r\n                              \"question\":\"What time zone does your merchant location operate in? \",\r\n                              \"conditionalOnAnswer\":1,\r\n                              \"tags\":[\r\n                                 {\r\n                                    \"group\":\"orderService.map.quest\",\r\n                                    \"name\":\"autoBatchTimeZone\"\r\n                                 },\r\n                                 {\r\n                                    \"group\":\"orderService.map.tsys\",\r\n                                    \"name\":\"autoBatchTimeZone\"\r\n                                 }\r\n                              ]\r\n                           }\r\n                        ],\r\n                        \"required\":true,\r\n                        \"question\":\"Does your merchant want to auto close their batch each night? \",\r\n                        \"tags\":[\r\n                           {\r\n                              \"group\":\"orderService.map.tsys\",\r\n                              \"name\":\"enableAutoBatch\"\r\n                           },\r\n                           {\r\n                              \"group\":\"orderService.map.quest\",\r\n                              \"name\":\"enableAutoBatch\"\r\n                           }\r\n                        ],\r\n                        \"valid\":true\r\n                     }\r\n                  ],\r\n                  \"BatchReportTypes\":[\r\n                     {\r\n                        \"id\":261,\r\n                        \"type\":\"Yes/No\",\r\n                        \"sendToMerchantApp\":false,\r\n                        \"answers\":[\r\n                           {\r\n                              \"id\":1,\r\n                              \"selected\":false,\r\n                              \"answer\":\"Yes\",\r\n                              \"uId\":\"1BatchReportTypes1\"\r\n                           },\r\n                           {\r\n                              \"id\":2,\r\n                              \"selected\":true,\r\n                              \"answer\":\"No\",\r\n                              \"uId\":\"1BatchReportTypes2\"\r\n                           }\r\n                        ],\r\n                        \"children\":[\r\n                           {\r\n                              \"id\":262,\r\n                              \"type\":\"FreeText\",\r\n                              \"sendToMerchantApp\":false,\r\n                              \"answers\":[\r\n                                 {\r\n                                    \"id\":0,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"\",\r\n                                    \"uId\":\"2BatchReportTypes1\"\r\n                                 }\r\n                              ],\r\n                              \"children\":[\r\n\r\n                              ],\r\n                              \"required\":true,\r\n                              \"question\":\"What email address does your merchant want thier batch summary sent to? \",\r\n                              \"conditionalOnAnswer\":1,\r\n                              \"tags\":[\r\n                                 {\r\n                                    \"group\":\"orderService.map.quest\",\r\n                                    \"name\":\"batchReportEmailAddress\"\r\n                                 }\r\n                              ],\r\n                              \"valid\":true\r\n                           }\r\n                        ],\r\n                        \"required\":true,\r\n                        \"question\":\"Does your merchant want to recieve a summary batch report? \",\r\n                        \"tags\":[\r\n                           {\r\n                              \"group\":\"orderService.map.quest\",\r\n                              \"name\":\"batchReport\"\r\n                           }\r\n                        ],\r\n                        \"valid\":true\r\n                     }\r\n                  ],\r\n                  \"Setup\":[\r\n                     {\r\n                        \"id\":250,\r\n                        \"type\":\"Yes/No\",\r\n                        \"sendToMerchantApp\":false,\r\n                        \"answers\":[\r\n                           {\r\n                              \"id\":1,\r\n                              \"selected\":true,\r\n                              \"answer\":\"Yes\",\r\n                              \"uId\":\"1Setup1\"\r\n                           },\r\n                           {\r\n                              \"id\":2,\r\n                              \"selected\":false,\r\n                              \"answer\":\"No\",\r\n                              \"uId\":\"1Setup2\"\r\n                           }\r\n                        ],\r\n                        \"children\":[\r\n                           {\r\n                              \"id\":251,\r\n                              \"type\":\"Yes/No\",\r\n                              \"sendToMerchantApp\":false,\r\n                              \"answers\":[\r\n                                 {\r\n                                    \"id\":1,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"Yes\",\r\n                                    \"uId\":\"2Setup1\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":2,\r\n                                    \"selected\":true,\r\n                                    \"answer\":\"No\",\r\n                                    \"uId\":\"2Setup2\"\r\n                                 }\r\n                              ],\r\n                              \"children\":[\r\n\r\n                              ],\r\n                              \"required\":true,\r\n                              \"question\":\"Does your merchant want to participate in account updater? \",\r\n                              \"conditionalOnAnswer\":1,\r\n                              \"tags\":[\r\n                                 {\r\n                                    \"group\":\"orderService.map.tsys\",\r\n                                    \"name\":\"enableAccountUpdater\"\r\n                                 },\r\n                                 {\r\n                                    \"group\":\"orderService.map.quest\",\r\n                                    \"name\":\"enableAccountUpdater\"\r\n                                 }\r\n                              ],\r\n                              \"valid\":true\r\n                           }\r\n                        ],\r\n                        \"required\":true,\r\n                        \"question\":\"Does your merchant want to process recurring payments? \",\r\n                        \"tags\":[\r\n                           {\r\n                              \"group\":\"orderService.map.quest\",\r\n                              \"name\":\"recurringPayments\"\r\n                           }\r\n                        ],\r\n                        \"valid\":true\r\n                     },\r\n                     {\r\n                        \"id\":253,\r\n                        \"type\":\"Yes/No\",\r\n                        \"sendToMerchantApp\":false,\r\n                        \"answers\":[\r\n                           {\r\n                              \"id\":1,\r\n                              \"selected\":true,\r\n                              \"answer\":\"Yes\",\r\n                              \"uId\":\"1Setup5\"\r\n                           },\r\n                           {\r\n                              \"id\":2,\r\n                              \"selected\":false,\r\n                              \"answer\":\"No\",\r\n                              \"uId\":\"1Setup6\"\r\n                           }\r\n                        ],\r\n                        \"children\":[\r\n                           {\r\n                              \"id\":254,\r\n                              \"type\":\"MultipleChoice-SingleSelect\",\r\n                              \"sendToMerchantApp\":false,\r\n                              \"answers\":[\r\n                                 {\r\n                                    \"id\":148,\r\n                                    \"selected\":false,\r\n                                    \"answer\":\"FlatFee\",\r\n                                    \"uId\":\"2Setup1\"\r\n                                 },\r\n                                 {\r\n                                    \"id\":149,\r\n                                    \"selected\":true,\r\n                                    \"answer\":\"Percentage\",\r\n                                    \"uId\":\"2Setup2\"\r\n                                 }\r\n                              ],\r\n                              \"children\":[\r\n                                 {\r\n                                    \"id\":256,\r\n                                    \"type\":\"DollarAmount\",\r\n                                    \"sendToMerchantApp\":false,\r\n                                    \"answers\":[\r\n                                       {\r\n                                          \"id\":0,\r\n                                          \"selected\":false,\r\n                                          \"answer\":\"\",\r\n                                          \"uId\":\"3Setup1\"\r\n                                       }\r\n                                    ],\r\n                                    \"children\":[\r\n\r\n                                    ],\r\n                                    \"required\":true,\r\n                                    \"question\":\"What flat fee does your merchant want to charge? (must be lower than 3.9% of averge transaction amount) \",\r\n                                    \"conditionalOnAnswer\":148,\r\n                                    \"tags\":[\r\n                                       {\r\n                                          \"group\":\"orderService.map.quest\",\r\n                                          \"name\":\"cashDiscountFlatFee\"\r\n                                       }\r\n                                    ],\r\n                                    \"valid\":true\r\n                                 },\r\n                                 {\r\n                                    \"id\":255,\r\n                                    \"type\":\"Percentage\",\r\n                                    \"sendToMerchantApp\":false,\r\n                                    \"answers\":[\r\n                                       {\r\n                                          \"id\":0,\r\n                                          \"selected\":false,\r\n                                          \"answer\":\"1\",\r\n                                          \"uId\":\"3Setup1\"\r\n                                       }\r\n                                    ],\r\n                                    \"children\":[\r\n\r\n                                    ],\r\n                                    \"required\":true,\r\n                                    \"question\":\"What percent does your merchant want to charge?  (max is 3.9) \",\r\n                                    \"conditionalOnAnswer\":149,\r\n                                    \"tags\":[\r\n                                       {\r\n                                          \"group\":\"orderService.map.quest\",\r\n                                          \"name\":\"cashDiscountPercent\"\r\n                                       }\r\n                                    ],\r\n                                    \"valid\":true,\r\n                                    \"errors\":[\r\n\r\n                                    ]\r\n                                 }\r\n                              ],\r\n                              \"required\":true,\r\n                              \"question\":\"How does your merchant want the cash discount applied?  \",\r\n                              \"conditionalOnAnswer\":1,\r\n                              \"tags\":[\r\n                                 {\r\n                                    \"group\":\"orderService.map.quest\",\r\n                                    \"name\":\"cashDiscountType\"\r\n                                 }\r\n                              ],\r\n                              \"valid\":true\r\n                           }\r\n                        ],\r\n                        \"required\":true,\r\n                        \"question\":\"Does your merchant want to participate in the Cash Discount program? \",\r\n                        \"tags\":[\r\n                           {\r\n                              \"group\":\"orderService.map.quest\",\r\n                              \"name\":\"cashDiscount\"\r\n                           }\r\n                        ],\r\n                        \"valid\":true\r\n                     }\r\n                  ],\r\n                  \"Tips\":[\r\n                     {\r\n                        \"id\":264,\r\n                        \"type\":\"Yes/No\",\r\n                        \"sendToMerchantApp\":false,\r\n                        \"answers\":[\r\n                           {\r\n                              \"id\":1,\r\n                              \"selected\":true,\r\n                              \"answer\":\"Yes\",\r\n                              \"uId\":\"1Tips1\"\r\n                           },\r\n                           {\r\n                              \"id\":2,\r\n                              \"selected\":false,\r\n                              \"answer\":\"No\",\r\n                              \"uId\":\"1Tips2\"\r\n                           }\r\n                        ],\r\n                        \"children\":[\r\n\r\n                        ],\r\n                        \"required\":true,\r\n                        \"question\":\"Does your merchant want to accept tips?\",\r\n                        \"tags\":[\r\n                           {\r\n                              \"group\":\"orderService.map.quest\",\r\n                              \"name\":\"enableTips\"\r\n                           },\r\n                           {\r\n                              \"group\":\"orderService.map.tsys\",\r\n                              \"name\":\"enableTips\"\r\n                           },\r\n                           {\r\n                              \"group\":\"boarding.decider.complete\",\r\n                              \"name\":\"BoardedQuest\"\r\n                           }\r\n                        ],\r\n                        \"valid\":true\r\n                     }\r\n                  ]\r\n               }\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/equipment/orders",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"equipment",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Demographics - Add Proof Of Signature",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3da17fb1-e5f0-4c9a-a52c-25ae08d0eed6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"type": "text"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": [\n    \t{\n            \"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\" : 2,\n            \"signatureSectionTypeId\" : 1,\n            \"ipAddress\": \"11.11.21.17\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\",\n            \"signerViewedLegalText\": false\n        },\n        {\n        \t\"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\": 2,\n            \"signatureSectionTypeId\" : 2,\n            \"ipAddress\": \"11.11.21.17\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\",\n\t\t\t\"signerViewedLegalText\": true\n        },\n        {\n            \"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\" : 2,\n            \"signatureSectionTypeId\" : 3,\n            \"ipAddress\": \"11.11.21.7776\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\"\n        },\n        {\n            \"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\" : 2,\n            \"signatureSectionTypeId\" : 4,\n            \"ipAddress\": \"11.11.21.17\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\"\n        },\n        {\n            \"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\" : 2,\n            \"signatureSectionTypeId\" : 5,\n            \"ipAddress\": \"11.11.21.17\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\"\n        },\n        {\n            \"businessContactId\": {{BusinessContactId}},\n            \"signatureSourceTypeId\" : 2,\n            \"signatureSectionTypeId\" : 6,\n            \"ipAddress\": \"11.11.21.17\",\n            \"timeStamp\": \"2019-11-15T00:00:00Z\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/demographics/v1.0/Signatures/{{MerchantId}}",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"demographics",
+								"v1.0",
+								"Signatures",
+								"{{MerchantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boarding Management - Submit Signatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f05fa744-9f9c-4dc2-9c7c-cf3fc0efc67c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/boardingmanagement/v1.0/applications/{{MerchantId}}/SubmitSignatures",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"boardingmanagement",
+								"v1.0",
+								"applications",
+								"{{MerchantId}}",
+								"SubmitSignatures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boarding Management - Submit App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d954b7f4-a371-414e-a109-ac8de3634c93",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "eb77cd59-e939-4537-9b87-135fb538541d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ExchangeID",
+								"value": "{{ExchangeID}}"
+							},
+							{
+								"key": "AccessKey",
+								"value": "{{AccessKey}}",
+								"description": "Your access key"
+							},
+							{
+								"key": "MerchantId",
+								"value": "{{MerchantId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://boarding-sb.clearent.net/api/boardingmanagement/v1.0/applications/{{MerchantId}}/Submit",
+							"protocol": "https",
+							"host": [
+								"boarding-sb",
+								"clearent",
+								"net"
+							],
+							"path": [
+								"api",
+								"boardingmanagement",
+								"v1.0",
+								"applications",
+								"{{MerchantId}}",
+								"Submit"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c1bd1e1c-39de-43a2-89a2-5c69c7593c23",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "62e2358a-4d44-4a75-b712-ba48647e413e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b904d45f-7ad2-4b34-8b23-8eb20be4b515",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "af8b27ec-50f4-4573-9f68-6832740f94a3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "249ce38e-4cde-4ad7-b033-1808c11096fa",
+			"key": "HierarchyNodeKey",
+			"value": "YourPortfolioMerchantID",
+			"type": "string"
+		},
+		{
+			"id": "f546d2a1-d816-47bd-b50e-d3095810ff27",
+			"key": "AccessKey",
+			"value": "YourAccessKey",
+			"type": "string"
+		},
+		{
+			"id": "1c9eedc1-2c64-4401-ab0e-7e831b74e2e7",
+			"key": "ExchangeID",
+			"value": "YourExchangeID",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
