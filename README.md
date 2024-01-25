@@ -3,7 +3,6 @@ Example requests for boarding a merchant using the Clearent Boarding API. The te
 
 ## 1. First clone the repo:
 git clone  https://github.com/Clearent-Gateway/API-Examples
-
 git pull
 
 ## 2. Download and install postman:
@@ -17,3 +16,8 @@ Right click the imported test folder and select Edit and then click the Variable
 
 ## 5. Run the tests.
 Click the arrow next to the imported test folder and then click Run.
+
+# Current Examples
+The test file named BoardingApiExampleFlow.postman_collection.json include all the requests to onboard a merchant with Xplor in the US.
+The test file named Launch For Integrators Pricing Example.postman_collection.json includes all the requests to onboard a merchant using the Launch For Integrators flow in the US.
+
